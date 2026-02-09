@@ -26,15 +26,30 @@ public class FlipperScript : MonoBehaviour
     {
         if(myHingeJoint != null){
             
-            if (Input.GetKey(KeyCode.W))
-            {
-                myHingeMotor.motorSpeed = -motorSpeed; //modifies motor to shoot UP                 
+            if (left){ //LEFT FLIPPERS
+                if (Input.GetKey(KeyCode.E))
+                {
+                    myHingeMotor.motorSpeed = -motorSpeed; //modifies motor to shoot UP                 
+                }
+                else
+                {
+                    myHingeMotor.motorSpeed = motorSpeed; //modifies motor to reset DOWN
+                }
+                myHingeJoint.motor = myHingeMotor; //assigns back
             }
-            else
-            {
-                myHingeMotor.motorSpeed = motorSpeed; //modifies motor to reset DOWN
+
+            if (right){ //RIGHT FLIPPERS
+                 if (Input.GetKey(KeyCode.I))
+                {
+                    myHingeMotor.motorSpeed = -motorSpeed; //modifies motor to shoot UP                 
+                }
+                else
+                {
+                    myHingeMotor.motorSpeed = motorSpeed; //modifies motor to reset DOWN
+                }
+                myHingeJoint.motor = myHingeMotor; //assigns back
+
             }
-            myHingeJoint.motor = myHingeMotor; //assigns back
         }
     }
     void Update()
