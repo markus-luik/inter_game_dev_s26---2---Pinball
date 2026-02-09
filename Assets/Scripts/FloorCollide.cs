@@ -14,11 +14,16 @@ public class FloorCollide : MonoBehaviour {
     }
 
     void ChangeColor() {
-        spriteRenderer.color = new Color(Random.value, Random.value, Random.value);
+        // spriteRenderer.color = new Color(Random.value, Random.value, Random.value);
     }
 
     void OnCollisionEnter2D(Collision2D col) {
         ChangeColor();
         col.rigidbody.AddForce(Vector2.up * forceValue, ForceMode2D.Impulse);
+    }
+
+    void FixedUpdate()
+    {
+        
     }
 }
