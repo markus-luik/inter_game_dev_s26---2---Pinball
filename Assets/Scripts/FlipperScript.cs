@@ -9,7 +9,8 @@ public class FlipperScript : MonoBehaviour
     private JointMotor2D myHingeMotor;
     [SerializeField] private bool left = true;
     [SerializeField] private bool right = false;
-    [SerializeField] private float motorSpeed = 15000f;
+    [SerializeField] private float motorSpeedUP = 15000f;
+    [SerializeField] private float motorSpeedDOWN = 1000f;
 
     private void Awake() {
         myHingeJoint = GetComponent<HingeJoint2D>(); //gets a copy of joint
@@ -17,8 +18,10 @@ public class FlipperScript : MonoBehaviour
         myHingeJoint.useMotor = true; //makes sure motor is ON
         if (right)
         {
-            motorSpeed = -motorSpeed;
-            Debug.Log(motorSpeed);
+            motorSpeedUP = -motorSpeedUP;
+            motorSpeedDOWN = -motorSpeedDOWN;
+            Debug.Log(motorSpeedUP);
+            Debug.Log(motorSpeedDOWN);
         }
     }
 
@@ -29,11 +32,11 @@ public class FlipperScript : MonoBehaviour
             if (left){ //LEFT FLIPPERS
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    myHingeMotor.motorSpeed = -motorSpeed; //modifies motor to shoot UP                 
+                    myHingeMotor.motorSpeed = -motorSpeedUP; //modifies motor to shoot UP                 
                 }
                 else
                 {
-                    myHingeMotor.motorSpeed = motorSpeed; //modifies motor to reset DOWN
+                    myHingeMotor.motorSpeed = motorSpeedDOWN; //modifies motor to reset DOWN
                 }
                 myHingeJoint.motor = myHingeMotor; //assigns back
             }
@@ -41,11 +44,11 @@ public class FlipperScript : MonoBehaviour
             if (right){ //RIGHT FLIPPERS
                  if (Input.GetKey(KeyCode.RightShift))
                 {
-                    myHingeMotor.motorSpeed = -motorSpeed; //modifies motor to shoot UP                 
+                    myHingeMotor.motorSpeed = -motorSpeedUP; //modifies motor to shoot UP                 
                 }
                 else
                 {
-                    myHingeMotor.motorSpeed = motorSpeed; //modifies motor to reset DOWN
+                    myHingeMotor.motorSpeed = motorSpeedDOWN; //modifies motor to reset DOWN
                 }
                 myHingeJoint.motor = myHingeMotor; //assigns back
 

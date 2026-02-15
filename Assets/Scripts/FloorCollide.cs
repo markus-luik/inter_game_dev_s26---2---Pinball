@@ -3,7 +3,6 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(CircleCollider2D))]
 public class FloorCollide : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;

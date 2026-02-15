@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - GameManager
+  - Ball
+  - Flipper
   layers:
   - Default
   - TransparentFX
@@ -13,9 +15,9 @@ TagManager:
   - Water
   - UI
   - 
-  - 
-  - 
-  - 
+  - Walls
+  - Flippers
+  - Ball
   - 
   - 
   - 
@@ -39,11 +41,20 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3811745013
+    locked: 0
+  - name: Walls
+    uniqueID: 4092069921
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Foreground
     uniqueID: 1375614315
+    locked: 0
+  - name: Flippers
+    uniqueID: 3619192635
     locked: 0
   m_RenderingLayers:
   - Default
