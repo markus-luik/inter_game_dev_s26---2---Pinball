@@ -7,6 +7,7 @@ TagManager:
   - GameManager
   - Ball
   - Flipper
+  - Plunger
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Walls
   - Flippers
   - Ball
-  - 
+  - Plunger
   - 
   - 
   - 

@@ -30,7 +30,7 @@ public class FlipperScript : MonoBehaviour
         if(myHingeJoint != null){
             
             if (left){ //LEFT FLIPPERS
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
                 {
                     myHingeMotor.motorSpeed = -motorSpeedUP; //modifies motor to shoot UP                 
                 }
@@ -42,7 +42,7 @@ public class FlipperScript : MonoBehaviour
             }
 
             if (right){ //RIGHT FLIPPERS
-                 if (Input.GetKey(KeyCode.RightShift))
+                 if (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
                 {
                     myHingeMotor.motorSpeed = -motorSpeedUP; //modifies motor to shoot UP                 
                 }
