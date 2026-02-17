@@ -8,6 +8,9 @@ public class SimpleGameManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     private int currentScore = 0;
 
+    /// <summary>
+    /// Adds 1 to the sore if you press down the F key
+    /// </summary>
     public void AddToScore(int amountToAdd)
     {   
         currentScore += amountToAdd;
@@ -15,11 +18,16 @@ public class SimpleGameManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// DEBUG: Adds 1 to score if F is pressed, 40 if G is pressed   
+    /// </summary>
     void TestScoreUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
+        if (Input.GetKeyDown(KeyCode.F)) {
             AddToScore(1);
+        }
+        if (Input.GetKeyDown(KeyCode.G)) {
+            AddToScore(40);
         }
     }
 

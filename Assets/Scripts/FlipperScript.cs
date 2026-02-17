@@ -12,6 +12,10 @@ public class FlipperScript : MonoBehaviour
     [SerializeField] private float motorSpeedUP = 15000f;
     [SerializeField] private float motorSpeedDOWN = 1000f;
 
+    private AudioSource audioSource;
+    private bool keyBeingPressed = false;
+    private bool isUp = false;
+
     private void Awake() {
         myHingeJoint = GetComponent<HingeJoint2D>(); //gets a copy of joint
         myHingeMotor = myHingeJoint.motor; //gets a copy of motor from joint
@@ -22,40 +26,60 @@ public class FlipperScript : MonoBehaviour
             motorSpeedDOWN = -motorSpeedDOWN;
             Debug.Log(motorSpeedUP);
             Debug.Log(motorSpeedDOWN);
+            //gives motor starting down movement
+            myHingeMotor.motorSpeed = motorSpeedDOWN;
+            myHingeJoint.motor = myHingeMotor; 
         }
+        audioSource = GetComponent<AudioSource>(); //Gets audio source
+    }
+
+    private void PlaySound()
+    {
+        if (audioSource != null && audioSource.clip != null)
+            {
+                audioSource.PlayOneShot(audioSource.clip); //plays the clip assigned
+            }else{
+                Debug.Log("AudioSource or AudioResource is missing on flipper!");
+                return;
+            }
     }
 
     private void PlayerInput()
     {
         if(myHingeJoint != null){
-            
-            if (left){ //LEFT FLIPPERS
-                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-                {
-                    myHingeMotor.motorSpeed = -motorSpeedUP; //modifies motor to shoot UP                 
-                }
-                else
-                {
-                    myHingeMotor.motorSpeed = motorSpeedDOWN; //modifies motor to reset DOWN
-                }
-                myHingeJoint.motor = myHingeMotor; //assigns back
+
+            //---Checking Input---
+            if (left)
+            {
+                keyBeingPressed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+            }else if (right)
+            {
+                keyBeingPressed = Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
             }
 
-            if (right){ //RIGHT FLIPPERS
-                 if (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-                {
-                    myHingeMotor.motorSpeed = -motorSpeedUP; //modifies motor to shoot UP                 
-                }
-                else
-                {
-                    myHingeMotor.motorSpeed = motorSpeedDOWN; //modifies motor to reset DOWN
-                }
-                myHingeJoint.motor = myHingeMotor; //assigns back
-
+            //---Direction State Change---
+            if(keyBeingPressed && !isUp)
+            {
+                //Flipper goes UP
+                myHingeMotor.motorSpeed = -motorSpeedUP; //temp hingejoint given speed
+                myHingeJoint.motor = myHingeMotor; //temp hingejoint applied to real hingejoint
+                //Sound playing
+                PlaySound();
+                isUp = true;
+            }else if(!keyBeingPressed && isUp){
+                //Flipper goes DOWN
+                myHingeMotor.motorSpeed = motorSpeedDOWN;
+                myHingeJoint.motor = myHingeMotor; 
+                //Sound playing
+                // PlaySound();
+                isUp = false;
             }
+        }else{
+            Debug.Log("HingeJoint2D is missing on flipper!");
+            return;
         }
     }
-    void Update()
+    void FixedUpdate()
     {
         PlayerInput();
     }

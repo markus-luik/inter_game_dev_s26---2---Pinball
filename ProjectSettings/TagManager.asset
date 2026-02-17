@@ -8,6 +8,8 @@ TagManager:
   - Ball
   - Flipper
   - Plunger
+  - Slingshot
+  - Bumper
   layers:
   - Default
   - TransparentFX

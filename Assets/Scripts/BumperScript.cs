@@ -2,14 +2,21 @@ using UnityEngine;
 
 public class BumperScript : MonoBehaviour
 {
+
+    //GameManager reference
+    SimpleGameManager GM;
+    // Sprite Renderer reference
+    private SpriteRenderer spriteRenderer;
+
+
+    //Bumper Points
     [SerializeField] private int amountToAdd;
+
+    //Bumper Physics
     [SerializeField] private float bounceForce = 5f;
     [SerializeField] private float cooldownTime = 0.2f;
     private bool canBounce = true;
-    private SpriteRenderer spriteRenderer;
-
-    SimpleGameManager GM;
-
+    
     
     private void Awake()
     {
@@ -20,18 +27,36 @@ public class BumperScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        //checks to see if bounce cooldown has ended
         if (!canBounce) return;
 
-        Rigidbody2D rb = col.rigidbody;
-        if (rb != null)
-        {
-            Vector2 bounceDir = col.GetContact(0).normal; //gets bounce direction
-            rb.AddForce(-bounceDir * bounceForce, ForceMode2D.Impulse); //adds bounc force
+        //checks to see if the bouncer is interacting with ball
+        if (col.gameObject.CompareTag("Ball")){ 
+            //Adds points
+            GM.AddToScore(amountToAdd);
 
-            StartCoroutine(BounceCooldown()); //starts bounce cooldown
+            //Deals with bounce physics
+            if (col.rigidbody != null)
+            {
+                Vector2 bounceDir = col.GetContact(0).normal; //gets bounce direction
+                col.rigidbody.AddForce(-bounceDir * bounceForce, ForceMode2D.Impulse); //adds bounce force
+                StartCoroutine(BounceCooldown()); //starts bounce cooldown
+            }
+            else
+            {
+                Debug.Log("Ball has no rigidbody!");
+                return;
+            }
+
+            Debug.Log($"Player bounced off of {this.GetInstanceID()} and got {amountToAdd} points!");
         }
     }
 
+
+    /// <summary>
+    /// Coundown until next bounce is available
+    /// </summary>
+    /// <returns></returns>
     private System.Collections.IEnumerator BounceCooldown()
     {
         //updates if can bounce, changes color accordingly
@@ -42,6 +67,9 @@ public class BumperScript : MonoBehaviour
         spriteRenderer.color = new Color(1.0f,1.0f,1.0f);
     }
 
+    /// <summary>
+    /// Debugging: Press T to test if score gets added
+    /// </summary>
     void TestUpdateScore()
     {
         if (Input.GetKeyDown(KeyCode.T))
@@ -56,3 +84,27 @@ public class BumperScript : MonoBehaviour
         TestUpdateScore();
     }
 }
+
+
+//IN CLASS
+//using System;
+// using Unity.Android.Types;
+// using UnityEngine;
+
+// public class TestBumper : MonoBehaviour {
+    
+//     SimpleGameManager GM;
+//     [SerializeField] private int amountToAdd = 10;
+
+//     private void Awake() {
+//         GM = GameObject.FindGameObjectWithTag("SimpleGameManager").GetComponent<SimpleGameManager>();
+//     }
+
+//     void TestUpdateScore() {
+//         if (Input.GetKeyDown(KeyCode.T))GM.AddToScore(amountToAdd);
+//     }
+
+//     void Update() {
+//         TestUpdateScore();
+//     }
+// }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5451439095074755773}
   - component: {fileID: 1530167840042823491}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Outer sling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbde67b7df82251438e19c195b31e4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountToAdd: 20
+  amountToAdd: 120
   bounceForce: 10
   cooldownTime: 0.2
 --- !u!1 &4180061933459991677
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 5496884899754403562}
   - component: {fileID: 9156425683671636502}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Inner sling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,8 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbde67b7df82251438e19c195b31e4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountToAdd: 20
-  bounceForce: 10
+  amountToAdd: 100
+  bounceForce: 12
   cooldownTime: 0.2
 --- !u!1 &4627083495131478982
 GameObject:
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 5671099527245007789}
   - component: {fileID: 6465934901114966468}
   m_Layer: 0
-  m_Name: Square (2)
+  m_Name: Bottom sling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbde67b7df82251438e19c195b31e4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountToAdd: 20
+  amountToAdd: 200
   bounceForce: 10
   cooldownTime: 0.2
 --- !u!1 &7194761333508434571
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 6641869447390777223}
   m_Layer: 0
   m_Name: Slingshot Right
-  m_TagString: Untagged
+  m_TagString: Slingshot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
