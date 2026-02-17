@@ -16,6 +16,8 @@ public class BumperScript : MonoBehaviour
     [SerializeField] private float bounceForce = 5f;
     [SerializeField] private float cooldownTime = 0.2f;
     private bool canBounce = true;
+
+    private AudioSource audioSource;
     
     
     private void Awake()
@@ -23,6 +25,7 @@ public class BumperScript : MonoBehaviour
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<SimpleGameManager>(); //finds ONE game object with GameManager tag and gets its script. 
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>(); //Gets audio source
     } 
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -34,6 +37,8 @@ public class BumperScript : MonoBehaviour
         if (col.gameObject.CompareTag("Ball")){ 
             //Adds points
             GM.AddToScore(amountToAdd);
+            //Plays sounds
+            PlaySound();
 
             //Deals with bounce physics
             if (col.rigidbody != null)
@@ -76,6 +81,17 @@ public class BumperScript : MonoBehaviour
         {
             GM.AddToScore(amountToAdd);
         }
+    }
+
+    private void PlaySound()
+    {
+        if (audioSource != null)
+            {
+                audioSource.Play(); //plays the clip assigned
+            }else{
+                Debug.Log("AudioSource is missing on flipper!");
+                return;
+            }
     }
 
     // Update is called once per frame

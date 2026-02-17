@@ -4,9 +4,18 @@ using TMPro;
 
 public class SimpleGameManager : MonoBehaviour
 {
-
-    [SerializeField] private TMP_Text scoreText;
+    //Score
     private int currentScore = 0;
+    [SerializeField] private TMP_Text scoreText;
+
+    //Sound
+    private bool musicPlaying = false;
+    private AudioSource audioSource;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>(); //Gets audio source
+    }
 
     /// <summary>
     /// Adds 1 to the sore if you press down the F key
@@ -31,7 +40,22 @@ public class SimpleGameManager : MonoBehaviour
         }
     }
 
-
+    private void ToggleMusic()
+    {   
+        if (audioSource != null)
+        {
+            if (!musicPlaying){
+                audioSource.Play(); //plays the clip assigned
+                musicPlaying = true;
+            }else{
+                audioSource.Stop();   
+                musicPlaying = false;
+            }
+        }else{
+            Debug.Log("AudioSource or AudioResource is missing on GameManager!");
+            return;
+        }
+    }
 
     /// <summary>
     /// Reloads the scene when you hold leftShift and press down R on the keyboard
@@ -51,6 +75,14 @@ public class SimpleGameManager : MonoBehaviour
     {
         TestScoreUpdate();
         ReloadSceneInput();
+
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                ToggleMusic();
+            }
+        }
     }
 }
 

@@ -48,9 +48,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -14
       objectReference: {fileID: 0}
+    - target: {fileID: 4373543165645464426, guid: b824a4317aea4994990907e8f2eb237a, type: 3}
+      propertyPath: Pan2D
+      value: -0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856102988315622651, guid: b824a4317aea4994990907e8f2eb237a, type: 3}
+      propertyPath: Pan2D
+      value: -0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 6981155111591197847, guid: b824a4317aea4994990907e8f2eb237a, type: 3}
+      propertyPath: Pan2D
+      value: -0.38
+      objectReference: {fileID: 0}
     - target: {fileID: 7194761333508434571, guid: b824a4317aea4994990907e8f2eb237a, type: 3}
       propertyPath: m_Name
-      value: Slingshot Right (1) Variant
+      value: Slingshot Left
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
