@@ -33,7 +33,7 @@ public class FloorCollide : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D col) {
         ChangeColor();
         col.rigidbody.AddForce(Vector2.up * forceValue, ForceMode2D.Impulse);
-        PlaySound();//plays sound
+        // PlaySound();//plays sound //sounds like radiation
     }
 
     void FixedUpdate()
