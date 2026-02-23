@@ -6,7 +6,19 @@ public class SimpleGameManager : MonoBehaviour
 {
     //Score
     private int currentScore = 0;
+    private int highScore = 0;
     [SerializeField] private TMP_Text scoreText;
+
+    //Life text
+    [SerializeField] private TMP_Text livesText;
+    //Ball reference
+    public GameObject ball;
+    BallManagerScript ballScript;
+    //Lives
+    [SerializeField] private int startingLives = 3;
+    private int lives;
+    private int minimumLives = 0;
+    public bool ballCanLive = true;
 
     //Sound
     private bool musicPlaying = false;
@@ -14,7 +26,12 @@ public class SimpleGameManager : MonoBehaviour
 
     void Awake()
     {
+        lives = startingLives;
+        ballCanLive = true;
         audioSource = GetComponent<AudioSource>(); //Gets audio source
+
+        //find game manager
+        ballScript = GameObject.FindGameObjectWithTag("Ball").GetComponent<BallManagerScript>();
     }
 
     /// <summary>
@@ -23,9 +40,85 @@ public class SimpleGameManager : MonoBehaviour
     public void AddToScore(int amountToAdd)
     {   
         currentScore += amountToAdd;
-        scoreText.text = $"Score: {currentScore}";
+        UpdateScore();
     }
 
+    /// <summary>
+    /// Updates score text
+    /// </summary>
+    void UpdateScore()
+    {
+        scoreText.text = $"Score: {currentScore} (Highscore: {highScore})";
+    }
+    
+    /// <summary>
+    /// Manages lives
+    /// </summary>
+    public void lifeManager()
+    {   
+        livesText.text = $"{lives} balls remaining";
+
+        if (lives <= minimumLives)
+        {
+            DisableBall();
+            livesText.text = $"0 balls remaining! Press R to restart.";
+            if (currentScore > highScore)
+            {
+                highScore = currentScore;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Reduces life by 1
+    /// </summary>
+    public void lifeReducer()
+    {
+        lives -= 1;
+        lifeManager();
+        Debug.Log("Life is reduced!");
+        ballScript.ResetBallPosition();
+    }
+
+    /// <summary>
+    /// Hides Ball
+    /// </summary>
+    void DisableBall()
+    {
+        if (ball != null && ballCanLive)
+        {
+            ballCanLive = false;
+            ball.SetActive(false); // false to hide, true to show
+            //Destroy(GameObject.FindWithTag("Ball"));
+        }
+    }
+    /// <summary>
+    /// Shows object
+    /// </summary>
+    void EnableBall()
+    {
+        if (ball != null && !ballCanLive)
+        {
+            ballCanLive = true;
+            ball.SetActive(true);
+            ballScript.ResetBallPosition();
+        }
+    }
+
+    void RestartGame()
+    {
+        Debug.Log("Game restarting....");
+        lives = startingLives;
+        Debug.Log($"Lives {lives}");
+        currentScore = 0;
+        Debug.Log($"Score {currentScore}");
+        Debug.Log($"Highscore {highScore}");
+        EnableBall();
+        Debug.Log("Ball Enables");
+        UpdateScore();
+        Debug.Log("Score redrawn");
+        Debug.Log("....Restarted!");
+    }
 
     /// <summary>
     /// DEBUG: Adds 1 to score if F is pressed, 40 if G is pressed   
@@ -58,7 +151,7 @@ public class SimpleGameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Reloads the scene when you hold leftShift and press down R on the keyboard
+    /// DEBUG: Reloads the scene when you hold leftShift and press down R on the keyboard
     /// </summary>
     void ReloadSceneInput()
     {
@@ -71,10 +164,23 @@ public class SimpleGameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Restarts game if ball can not live and R is pressed
+    /// </summary>
+    void GameRestartInput()
+    {
+        if (!ballCanLive && Input.GetKey(KeyCode.R))
+        {
+            RestartGame();
+        }
+    }
+
     void Update()
     {
-        TestScoreUpdate();
-        ReloadSceneInput();
+        //TestScoreUpdate();
+        //ReloadSceneInput();
+        GameRestartInput();
+        lifeManager();
 
         if (Input.GetKey(KeyCode.Alpha4))
         {

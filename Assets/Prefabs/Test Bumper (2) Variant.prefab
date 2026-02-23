@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: bounceForce
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8735580367358888676, guid: c9db64d2659fcc849a39bfc386b4507e, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5881615447209692763, guid: c9db64d2659fcc849a39bfc386b4507e, type: 3}

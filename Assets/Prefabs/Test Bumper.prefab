@@ -321,7 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amountToAdd: 200
   bounceForce: 5
-  cooldownTime: 0.2
+  cooldownTime: 1
 --- !u!82 &8735580367358888676
 AudioSource:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: c9b212192a53af94fb2daff3e513aa9c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
